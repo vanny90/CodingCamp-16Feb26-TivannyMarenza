@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowTask • Modern Todo App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Animated Background -->
+        <div class="gradient-bg">
+            <div class="gradient-sphere"></div>
+            <div class="gradient-sphere"></div>
+            <div class="gradient-sphere"></div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="glass-container">
+            <!-- Header with Stats -->
+            <div class="app-header">
+                <div class="header-content">
+                    <h1 class="app-title">
+                        <i class="fas fa-check-circle"></i>
+                        FlowTask
+                    </h1>
+                    <p class="app-subtitle">Organize your day, achieve more</p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalTasks">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="completedTasks">0</span>
+                        <span class="stat-label">Done</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="pendingTasks">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Input dengan Desain Modern -->
+            <form id="todoForm" class="todo-form">
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fas fa-pencil-alt input-icon"></i>
+                        <input 
+                            type="text" 
+                            id="todoInput" 
+                            placeholder="What needs to be done?" 
+                            class="modern-input"
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <div class="input-field">
+                        <i class="far fa-calendar-alt input-icon"></i>
+                        <input 
+                            type="date" 
+                            id="dateInput" 
+                            class="modern-input date-input"
+                            min="<?php echo date('Y-m-d'); ?>"
+                        >
+                    </div>
+
+                    <div class="input-field priority-field">
+                        <i class="fas fa-flag input-icon"></i>
+                        <select id="prioritySelect" class="modern-input priority-select">
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Priority</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-add" id="addBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Task</span>
+                    </button>
+                </div>
+                <div id="errorMessage" class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span></span>
+                </div>
+            </form>
+
+            <!-- Control Bar -->
+            <div class="control-bar">
+                <!-- Search -->
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search tasks..." 
+                        class="search-input"
+                    >
+                </div>
+
+                <!-- Filter & Actions -->
+                <div class="filter-actions">
+                    <div class="filter-group">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        
+                        <select id="priorityFilter" class="filter-select">
+                            <option value="all">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                        
+                        <button id="filterBtn" class="btn-filter">
+                            <i class="fas fa-filter"></i>
+                            <span class="btn-text">Apply</span>
+                        </button>
+                    </div>
+
+                    <button id="sortBtn" class="btn-icon" title="Sort by date">
+                        <i class="fas fa-sort-amount-down"></i>
+                    </button>
+                    
+                    <button id="exportBtn" class="btn-icon" title="Export tasks">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Priority Legend -->
+            <div class="priority-legend">
+                <span class="legend-item"><span class="priority-dot urgent"></span> Urgent</span>
+                <span class="legend-item"><span class="priority-dot high"></span> High</span>
+                <span class="legend-item"><span class="priority-dot medium"></span> Medium</span>
+                <span class="legend-item"><span class="priority-dot low"></span> Low</span>
+            </div>
+
+            <!-- Todo Grid/Table -->
+            <div class="tasks-container" id="tasksContainer">
+                <!-- Tasks will be dynamically added here -->
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="app-footer">
+                <div class="footer-left">
+                    <span class="tasks-count" id="tasksCount">0 tasks</span>
+                </div>
+                
+                <div class="footer-actions">
+                    <button id="clearCompletedBtn" class="btn-text">
+                        <i class="far fa-trash-alt"></i>
+                        Clear completed
+                    </button>
+                    
+                    <button id="deleteAllBtn" class="btn-text danger">
+                        <i class="fas fa-trash"></i>
+                        Delete all
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast">
+            <i class="fas fa-check-circle toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmModal" class="modal">
+            <div class="modal-content">
+                <i class="fas fa-exclamation-triangle modal-icon"></i>
+                <h3 class="modal-title">Are you sure?</h3>
+                <p class="modal-message" id="modalMessage"></p>
+                <div class="modal-actions">
+                    <button class="btn-modal cancel" id="modalCancel">Cancel</button>
+                    <button class="btn-modal confirm" id="modalConfirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
