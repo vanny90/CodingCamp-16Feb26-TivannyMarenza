@@ -1,19 +1,18 @@
-/* Modern CSS Reset and Variables - Pink Theme */
 :root {
-    --primary: #ec4899; /* Pink utama */
-    --primary-dark: #db2777; /* Pink lebih gelap */
-    --primary-light: #f9a8d4; /* Pink lebih terang */
-    --primary-soft: #fbcfe8; /* Pink sangat soft */
-    --secondary: #a855f7; /* Ungu sebagai aksen */
+    --primary: #ec4899;
+    --primary-dark: #db2777;
+    --primary-light: #f9a8d4; 
+    --primary-soft: #fbcfe8; 
+    --secondary: #a855f7;
     --secondary-light: #d8b4fe;
     --danger: #ef4444;
     --warning: #f59e0b;
     --success: #10b981;
-    --dark: #831843; /* Dark pink untuk teks */
-    --light: #fff1f2; /* Light pink untuk background */
+    --dark: #831843; 
+    --light: #fff1f2; 
     --gray: #9d174d;
     --gray-light: #fbcfe8;
-    --glass-bg: rgba(255, 192, 203, 0.25); /* Pink glass */
+    --glass-bg: rgba(255, 192, 203, 0.25); 
     --glass-border: rgba(255, 192, 203, 0.35);
     --shadow-sm: 0 4px 6px -1px rgb(219 39 119 / 0.1);
     --shadow-md: 0 10px 15px -3px rgb(219 39 119 / 0.1);
@@ -41,7 +40,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated Gradient Background - Pink Theme */
+/* Animated Gradient Background */
 .gradient-bg {
     position: fixed;
     top: 0;
